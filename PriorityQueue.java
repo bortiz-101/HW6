@@ -1,7 +1,7 @@
 
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Brian Ortiz / 0001
  *
  *   Note, additional comments provided throughout this source code
  *   is for educational purposes
