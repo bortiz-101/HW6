@@ -10,6 +10,7 @@
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.ListIterator;
 
 /**
  * Class PriorityQueue<E,P>
@@ -114,10 +115,10 @@ class PriorityQueue<E, P> {
     /**
      * Public Method peek()
      *
-     * Retrieves, but does not remove, the head of this queue, or returns null 
+     * Retrieves, but does not remove, the head of this queue, or returns null
      * if this queue is empty.
      *
-     * @return: Node    - An element of type Node is returned, else null 
+     * @return: Node    - An element of type Node is returned, else null
      *                    if queue is empty.
      */
 
@@ -136,23 +137,26 @@ class PriorityQueue<E, P> {
      * lowest level of the tree. It then will pull up the inserted element towards
      * the root until it is in its correct location on the heap.
      *
-     * The parameters are the object representing the element to queue, along with 
-     * its priority object. The method returns the type Node, which allows a handle 
-     * to the inserted item by the invoking application (if desired). The invoking 
-     * application has the availability to invoke any method available on type Node 
-     * after it is returned, including changing the priority of an element while 
+     * The parameters are the object representing the element to queue, along with
+     * its priority object. The method returns the type Node, which allows a handle
+     * to the inserted item by the invoking application (if desired). The invoking
+     * application has the availability to invoke any method available on type Node
+     * after it is returned, including changing the priority of an element while
      * still on the queue.
      *
      * @param: E e          - Element to add to queue
      * @param: P priority   - The priority for the newly added element
-     * @return: Node        - Returns an object of type 'Node' representing the 
+     * @return: Node        - Returns an object of type 'Node' representing the
      *                        newly inserted element
      */
 
     public Node add(E e, P priority) {
 
-        // YOUR CODE GOES HERE
-        return null;
+        int index = tree.size();
+        Node Node = new Node(e,priority, index);
+        tree.add(index, Node);
+        pullUp(index);
+        return Node;
     }
 
 
@@ -167,8 +171,11 @@ class PriorityQueue<E, P> {
      */
 
     public boolean contains(E e) {
-
-        // ADD YOUR CODE HERE
+        for(Node node: tree) {
+            if(node.value.equals(e)) {
+                return true;
+            }
+        }
         return false;
     }
 
