@@ -64,13 +64,19 @@ public class ProblemSolutions {
      */
 
   public static int lastBoulder(int[] boulders) {
-
-      //
-      // ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME / SECTION # ABOVE
-      //
-      return -1;
+      PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> b - a);
+      for (int i : boulders) {
+          pq.add(i);
+      }
+      while (pq.size() >= 2 ) {
+          int x = pq.poll();
+          int y = pq.poll();
+          if (x != y) {
+              pq.add(x - y);
+          }
+      }
+      return pq.isEmpty() ? 0 : pq.peek();
   }
-
 
     /**
      * Method showDuplicates
@@ -90,11 +96,19 @@ public class ProblemSolutions {
      */
 
     public static ArrayList<String> showDuplicates(ArrayList<String> input) {
-
-        //
-        //  YOUR CODE GOES HERE
-        //
-        return new ArrayList<>();  // Make sure result is sorted in ascending order
+        HashMap<String, Integer> map = new HashMap<>();
+        for (String s : input) {
+            map.put(s, map.getOrDefault(s, 0) + 1);
+        }
+        Set<String> duplicates = new HashSet<>();
+        for (String s : map.keySet()) {
+            if (map.get(s) > 1) {
+                duplicates.add(s);
+            }
+        }
+        ArrayList<String> newList = new ArrayList<>(duplicates);
+        Collections.sort(newList);
+        return newList;
 
     }
 
@@ -130,10 +144,19 @@ public class ProblemSolutions {
      */
 
     public static ArrayList<String> pair(int[] input, int k) {
+        HashSet<Integer> seen = new HashSet<>();
+        TreeSet<String> pairs = new TreeSet<>();
 
-        //
-        //  YOUR CODE GOES HERE
-        //
-        return new ArrayList<>();  // Make sure returned lists is sorted as indicated above
+        for (int num : input) {
+            int pair = k - num;
+
+            if (seen.contains(pair)) {
+                int smaller = Math.min(num, pair);
+                int larger = Math.max(num, pair);
+                pairs.add("(" + smaller + ", " + larger + ")");
+            }
+            seen.add(num);
+        }
+        return new ArrayList<>(pairs);
     }
 }
